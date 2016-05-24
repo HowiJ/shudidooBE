@@ -41,5 +41,38 @@
 $route['default_controller'] = "main";
 $route['404_override'] = '';
 
+
+
+//  Login & Registration
+////////////////////////////////////////////////////////////////////
+$route['checkLogin'] = "main/checkLogin";
+$route['addUser'] = "main/register";
+$route['logout'] = "main/logout";
+////////////////////////////////////////////////////////////////////
+
+
+
+
+//  Add User Tag & Add Activity Tag
+////////////////////////////////////////////////////////////////////
+$route['addUserTag'] = "main/addUserTag";
+$route['addActivityTag'] = "main/addActivityTag";
+////////////////////////////////////////////////////////////////////
+
+
+
+
+//  json encrypted data for GET
+////////////////////////////////////////////////////////////////////
+$route['json/users'] = "main/allUsers";                 //All Users
+$route['json/tags'] = "main/allTags";                   //All Tags
+$route['json/activities'] = "main/allActivities";       //All Activities
+$route['json/usertags'] = "main/allUserTags";       //All Activities
+$route['json/activitytags'] = "main/allActivityTags";       //All Activities
+
+$route['json/login'] = "main/jsonCheckLogin";
+////////////////////////////////////////////////////////////////////
+
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
