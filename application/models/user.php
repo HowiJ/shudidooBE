@@ -276,7 +276,7 @@
             $this->db->query($query, $insertion);
         }
         public function addTasks($post) {
-            $query = "INSERT INTO `shudidoo`.`tasks` (`task`, `user_id`)
+            $query = "INSERT INTO `shudidoo`.`tasks` (`task`, `user_id`, `priority`)
             VALUES (?, ?, ?);";
 
             $insertion = $post;
