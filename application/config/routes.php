@@ -52,6 +52,7 @@ $route['checkLogin'] = "main/checkLogin";
 $route['addUser'] = "main/register";
 $route['json/addUser'] = "main/jsonRegister";
 $route['logout'] = "main/logout";
+$route['delete/(:any)'] = "main/deleteUser/$1";
 ////////////////////////////////////////////////////////////////////
 
 

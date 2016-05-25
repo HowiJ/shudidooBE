@@ -108,6 +108,10 @@ class Main extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect('/');
 	}
+	public function deleteUser($id) {
+		$this->User->deleteUser($id);
+		redirect('/');
+	}
 	////////////////////////////////////////////////////////////////////////
 
 

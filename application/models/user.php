@@ -36,6 +36,13 @@
 
             $this->db->query($query, $insertion);
         }
+        public function deleteUser($id) {
+            $query = "DELETE FROM `shudidoo`.`users` WHERE `id`=?;";
+
+            $insertion = array($id);
+
+            $this->db->query($query, $insertion);
+        }
     	////////////////////////////////////////////////////////////////////////
 
 

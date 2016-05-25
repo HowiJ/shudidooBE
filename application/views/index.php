@@ -109,14 +109,38 @@
 
 
             <div class="view">
+
                 <div class="row">
                     <div class="col s12">
-                        <h4>User - Tags</h4>
+                        <h4 class="usersTable"><span>+</span> Users</h4>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col s12">
-                        <table class="centered bordered">
+                        <table id="usersTable" class="bordered">
+                            <?php foreach ($users as $key => $value): ?>
+                                <tr>
+                                    <td><?= $value['username'] ?></td>
+                                    <td><a href="/edit/<?= $value['id'] ?>">Edit User</a></td>
+                                    <?php if ($value['id'] != $this->session->userdata('currUser')['id']): ?>
+                                        <td><a href="/delete/<?= $value['id'] ?>">Delete User</a></td>
+                                    <?php else: ?>
+                                        <td>&nbsp;</td>
+                                    <?php endif; ?>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <h4 class="userTagsTableLabel"><span>+</span> User - Tags</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <table id="userTagsTable" class="centered bordered">
                             <tr>
                                 <td>&nbsp;</td>
                                 <?php $arr = array(); ?>
@@ -144,6 +168,8 @@
                         </table>
                     </div>
                 </div>
+
+
             </div>
 
 
@@ -415,6 +441,29 @@
                     //Toggle form under it
                     $('.addTagForms').slideToggle();
                     $('.registerRowForm').slideUp();
+                })
+
+
+                $('#userTagsTable').hide();
+                $('#usersTable').hide();
+
+                $('.userTagsTableLabel').click(function() {
+                    if ($(this).children().html() == "+") {
+                        $(this).children().html("-");
+                        $('#userTagsTable').show();
+                    } else {
+                        $(this).children().html("+");
+                        $('#userTagsTable').hide();
+                    }
+                })
+                $('.usersTable').click(function() {
+                    if ($(this).children().html() == "+") {
+                        $(this).children().html("-");
+                        $('#usersTable').show();
+                    } else {
+                        $(this).children().html("+");
+                        $('#usersTable').hide();
+                    }
                 })
 
                 $('.menuButton').click(function() {
