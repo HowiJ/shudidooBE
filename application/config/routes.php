@@ -48,7 +48,7 @@ $route['404_override'] = '';
 
 //  Login & Registration
 ////////////////////////////////////////////////////////////////////
-$route['checkLogin'] = "Main/checkLogin";
+$route['checkLogin'] = "main/checkLogin";
 $route['addUser'] = "main/register";
 $route['json/addUser'] = "main/jsonRegister";
 $route['logout'] = "main/logout";
