@@ -72,7 +72,7 @@ class Main extends CI_Controller {
 		//uname, pass, age, mobile?
 		if (count($users) == 1) {
 			//User already created
-			echo json_encode(array('Account already created. Please sign in. Tell howard'));
+			// echo json_encode(array('Account already created. Please sign in. Tell howard'));
 		} else if (count($users) < 1) {
 			//Add User
 			// $this->User->registerUser($post);
@@ -109,6 +109,22 @@ class Main extends CI_Controller {
 		redirect('/');
 	}
 	public function deleteUser($id) {
+		$connections = $this->User->getAllUserTagsById($id);
+		// var_dump($connections);
+		if (count($connections) > 0) {
+			foreach ($connections as $key => $value) {
+				//DELETE EACH BY $value['id']
+				$this->User->deleteUserTagByTagId($value['id']);
+			}
+		}
+		$tasks = $this->User->getTasksById($id);
+		if (count($tasks) > 0) {
+			foreach ($tasks as $key => $value) {
+				$this->User->deleteTaskByTaskId($value['id']);
+			}
+		}
+		// var_dump($tasks);
+
 		$this->User->deleteUser($id);
 		redirect('/');
 	}

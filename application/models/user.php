@@ -43,6 +43,20 @@
 
             $this->db->query($query, $insertion);
         }
+        public function deleteUserTagByTagId($id) {
+            $query = "DELETE FROM `shudidoo`.`user_tags` WHERE `id`=?";
+
+            $insertion = array($id);
+
+            $this->db->query($query, $insertion);
+        }
+        public function getAllUserTagsById($id) {
+            $query = "SELECT * FROM user_tags WHERE user_id = ?;";
+
+            $insertion = array($id);
+
+            return $this->db->query($query, $insertion)->result_array();
+        }
     	////////////////////////////////////////////////////////////////////////
 
 
@@ -194,17 +208,17 @@
         //GET All
         ////////////////////////////////////////////////////////////////////////
         public function getAllUsers() {
-            $query = "SELECT * FROM users";
+            $query = "SELECT * FROM users ORDER BY username ASC";
 
             return $this->db->query($query)->result_array();
         }
         public function getAllTags() {
-            $query = "SELECT * FROM tags";
+            $query = "SELECT * FROM tags ORDER BY tag ASC";
 
             return $this->db->query($query)->result_array();
         }
         public function getAllActivities() {
-            $query = "SELECT * FROM activities";
+            $query = "SELECT * FROM activities ORDER BY activity ASC";
 
             return $this->db->query($query)->result_array();
         }
@@ -246,6 +260,20 @@
             // var_dump($insertion);
 
             return $this->db->query($query, $insertion)->result_array();
+        }
+        public function getTasksById($id) {
+            $query = "SELECT * FROM tasks WHERE user_id = ?;";
+
+            $insertion = array($id);
+
+            return $this->db->query($query, $insertion)->result_array();
+        }
+        public function deleteTaskByTaskId($id) {
+            $query = "DELETE FROM `shudidoo`.`tasks` WHERE tasks.id = ?;";
+
+            $insertion = array($id);
+
+            $this->db->query($query, $insertion);
         }
         public function addTasks($post) {
             $query = "INSERT INTO `shudidoo`.`tasks` (`task`, `user_id`)

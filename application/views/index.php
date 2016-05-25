@@ -184,7 +184,7 @@
                                     <form class="registerRowForm addTagForm" action="/addTag" method="post">
                                         <div class="row">
                                             <div class="input-field col s6">
-                                                <input class="validate" type="text" name="newTag">
+                                                <input class="validate" type="text" name="newTag" required>
                                                 <label for="newTag">Tag Name</label>
                                             </div>
                                             <div class="col s5">
@@ -382,7 +382,7 @@
                 // })
                 $('.addTagForm').submit(function() {
                     event.preventDefault();
-                    console.log($(this).serialize() );
+                    // console.log($(this).serialize() );
 
                     var dataSerialized = $(this).serialize();
 
@@ -393,7 +393,7 @@
                 })
                 $('.addActivityForm').submit(function() {
                     event.preventDefault();
-                    console.log($(this).serialize() );
+                    // console.log($(this).serialize() );
 
                     var dataSerialized = $(this).serialize();
 
@@ -402,28 +402,28 @@
                     });
                 })
                 $('.addUserForm').submit(function() {
-                    event.preventDefault();
+                    // event.preventDefault();
                     console.log($(this).serialize() );
 
                     var dataSerialized = $(this).serialize();
 
-                    $.post('/addUser', dataSerialized, function(res){
-                        console.log(res);
-                    });
+                    // $.post('/addUser', {username:'mush',password:'asdf',age:7}, function(res){
+                    //     console.log(res);
+                    // });
                 })
                 $('.addUserTagForm').submit(function() {
                     event.preventDefault();
-                    console.log($(this).serialize() );
+                    // console.log($(this).serialize() );
 
                     var dataSerialized = $(this).serialize();
 
-                    $.post('/addUseTag', dataSerialized, function(res){
+                    $.post('/addUserTag', dataSerialized, function(res){
                         console.log(res);
                     });
                 })
                 $('.addActivityTagForm').submit(function() {
                     event.preventDefault();
-                    console.log($(this).serialize() );
+                    // console.log($(this).serialize() );
 
                     var dataSerialized = $(this).serialize();
 
@@ -457,6 +457,18 @@
                     }
                 })
                 $('.usersTable').click(function() {
+                    $.get("http://localhost:8888/json/users", function(res) {
+                        console.log(res);
+                        var table;
+                        for (var i = 0; i < res.length; i++) {
+                            table+='<tr>'+
+                                '<td>'+res[i]['username']+'</td>'+
+                                '<td><a href="edit/'+res[i]['id']+'">Edit</a></td>'+
+                                '<td><a href="delete/'+res[i]['id']+'">Delete</a></td>'+
+                            '</tr>'
+                        }
+                        $('#usersTable').html(table);
+                    }, "json");
                     if ($(this).children().html() == "+") {
                         $(this).children().html("-");
                         $('#usersTable').show();
