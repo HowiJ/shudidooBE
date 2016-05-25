@@ -14,6 +14,8 @@ class Main extends CI_Controller {
 
 
 
+
+
 	 //Views Loading
 	 ////////////////////////////////////////////////////////////////////////
 	public function index()
@@ -43,6 +45,8 @@ class Main extends CI_Controller {
 
 
 
+
+
 	//Login & Registration
 	////////////////////////////////////////////////////////////////////////
 	public function checkLogin() {
@@ -62,36 +66,42 @@ class Main extends CI_Controller {
 		}
 	}
 	public function register() {
-		$post = array();
-		$tmp = $this->input->post();
-		foreach ($tmp as $key => $value) {
-			array_push($post, $value);
-		}
-
-		// var_dump($post);
-
-		$users = $this->User->checkUser($post[0]);
+		$post = $this->input->post();
+		// echo json_encode(array('someting'));
+		$users = $this->User->checkUser($post['username']);
 		//uname, pass, age, mobile?
-		if (isset($post[3]) && $post[3] == 1) {	//if mobile
-			if (count($users) == 1) {
-				//User already created
-				echo json_encode(array('Account already created. Please sign in.'));
-			} else if (count($users) < 1) {
-				//Add User
-				echo json_encode($post);
-			} else {
-				//wtf... fix pls
-			}
+		if (count($users) == 1) {
+			//User already created
+			echo json_encode(array('Account already created. Please sign in. Tell howard'));
+		} else if (count($users) < 1) {
+			//Add User
+			// $this->User->registerUser($post);
+			$insert = array($post['username'], $post['password'], $post['age']);
+			$this->User->registerUser($insert);
 		} else {
-			if (count($users) == 1) {
-				//User already created
-			} else if (count($users) < 1) {
-				//Add User
-				$this->User->registerUser($post);
-			} else {
-				//wtf... fix pls
-			}
-			redirect('/');
+			//wtf... fix pls
+		}
+		redirect('/');
+		// echo json_encode(array('WTFWORK'));
+	}
+	public function jsonRegister() {
+		$post = $this->input->post();
+
+		$users = $this->User->checkUser($post['username']);
+		if (count($users) == 1) {
+			//User already created
+			echo json_encode(array('Account already created. Please sign in.'));
+		} else if (count($users) < 1) {
+			//Add User
+			$insert = array($post['username'], $post['password'], $post['age']);
+			$this->User->registerUser($insert);
+
+
+			$users = $this->User->checkUser($post['username']);
+			echo json_encode($users);
+		} else {
+			//wtf... fix pls
+			echo json_encode(array('dafuq...contact admin plox'));
 		}
 	}
 	public function logout() {
@@ -99,6 +109,53 @@ class Main extends CI_Controller {
 		redirect('/');
 	}
 	////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+	//Add Tags and Activities
+	////////////////////////////////////////////////////////////////////
+	public function addTag (){
+		$post = $this->input->post();
+		$postLower = array();
+
+		foreach ($post as $key=>$value) {
+			array_push($postLower, strtolower($value));
+		}
+		$check = $this->User->checkTag($postLower);
+
+		if (count($check) < 1) {
+			$this->User->addTag($postLower);
+		}
+
+		redirect('/');
+	}
+	public function addActivity (){
+		$post = $this->input->post();
+		$postLower = array();
+
+		foreach ($post as $key=>$value) {
+			array_push($postLower, strtolower($value));
+		}
+		$check = $this->User->checkActivity($postLower);
+
+		if (count($check) < 1) {
+			$this->User->addActivity($postLower);
+		}
+
+		redirect('/');
+	}
+	////////////////////////////////////////////////////////////////////
+
+
+
+
 
 
 
@@ -126,7 +183,41 @@ class Main extends CI_Controller {
 		}
 		redirect('/');
 	}
+	public function addActivityTag() {
+		$post = $this->input->post();
+
+		$check = $this->User->checkActivityTab($post);
+
+		if (count($check) < 1) {
+			//Add to activity_tags
+			// var_dump($post);
+			$this->User->addActivityTag($post);
+		}
+		redirect('/');
+	}
 	////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+	//Tasks
+	////////////////////////////////////////////////////////////////////
+	public function addTasks() {
+		$post = $this->input->post();
+		$user = $this->User->checkUser($post['username']);
+		$insert = array($user['id'], $post['task']);
+
+		$this->User->addTasks($insert);
+	}
+	////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 
 
@@ -167,13 +258,25 @@ class Main extends CI_Controller {
 	}
 	public function jsonCheckLogin() {
 		$post = $this->input->post();
-		$users = $this->User->checkLogin($post);
+		$input = array($post['username'], $post['password']);
+		$users = $this->User->checkLogin($input);
 
 		if (count($users) > 1) {
 		} else if (count($users) == 1) {
 			echo json_encode($users);
 		} else {
-			echo json_encode(array('Not valid Login'));
+			echo json_encode(array('bad login'));
+		}
+	}
+	public function getTasksByName() {
+		$post = $this->input->post();
+		$users = $this->User->getTasksByName($post);
+
+
+		if (count($users) < 1) {
+			echo json_encode(array('no tasks'));
+		} else {
+			echo json_encode($users);
 		}
 	}
 	////////////////////////////////////////////////////////////////////////

@@ -38,8 +38,11 @@
 |
 */
 
+//  System Default and 404
+////////////////////////////////////////////////////////////////////
 $route['default_controller'] = "main";
 $route['404_override'] = '';
+////////////////////////////////////////////////////////////////////
 
 
 
@@ -47,6 +50,7 @@ $route['404_override'] = '';
 ////////////////////////////////////////////////////////////////////
 $route['checkLogin'] = "main/checkLogin";
 $route['addUser'] = "main/register";
+$route['json/addUser'] = "main/jsonRegister";
 $route['logout'] = "main/logout";
 ////////////////////////////////////////////////////////////////////
 
@@ -55,9 +59,36 @@ $route['logout'] = "main/logout";
 
 //  Add User Tag & Add Activity Tag
 ////////////////////////////////////////////////////////////////////
+$route['addTag'] = "main/addTag";
+// $route['addTag'] = "main/getTasksByName";                   //All Tags
+$route['addActivity'] = "main/addActivity";
+
 $route['addUserTag'] = "main/addUserTag";
 $route['addActivityTag'] = "main/addActivityTag";
 ////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//  Tasks
+////////////////////////////////////////////////////////////////////
+$route['addTasks'] = "main/addTasks";
+////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//  Craziness
+////////////////////////////////////////////////////////////////////
+$route['getBulkActivities/(:any)'] = "task/index/$1";
+////////////////////////////////////////////////////////////////////
+
+
+
 
 
 
@@ -67,10 +98,11 @@ $route['addActivityTag'] = "main/addActivityTag";
 $route['json/users'] = "main/allUsers";                 //All Users
 $route['json/tags'] = "main/allTags";                   //All Tags
 $route['json/activities'] = "main/allActivities";       //All Activities
-$route['json/usertags'] = "main/allUserTags";       //All Activities
-$route['json/activitytags'] = "main/allActivityTags";       //All Activities
+$route['json/usertags'] = "main/allUserTags";           //All User Tags
+$route['json/activitytags'] = "main/allActivityTags";   //All Activity Tags
 
-$route['json/login'] = "main/jsonCheckLogin";
+$route['json/login'] = "main/jsonCheckLogin";           //Login for json
+$route['json/tasks'] = "main/getTasksByName";           //json Tasks for a user
 ////////////////////////////////////////////////////////////////////
 
 
