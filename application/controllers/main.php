@@ -208,7 +208,7 @@ class Main extends CI_Controller {
 	public function addTasks() {
 		$post = $this->input->post();
 		$user = $this->User->checkUser($post['username']);
-		$insert = array($user['id'], $post['task']);
+		$insert = array($user['id'], $post['task'], $post['priority']);
 
 		$this->User->addTasks($insert);
 	}

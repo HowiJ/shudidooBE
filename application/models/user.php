@@ -212,17 +212,6 @@
 
             return $this->db->query($query, $insertion)->result_array();
         }
-        public function getActivitiesWithTags2($tag, $arr) {
-            $query =
-            "SELECT activities.id, activity, tag FROM activities
-                JOIN activity_tags ON activity_id = activities.id
-                JOIN tags ON tag_id = tags.id
-                WHERE tag = ? AND tag NOT IN (" . implode(',', $arr) . ");";
-                // WHERE tag = ? AND tag NOT IN (" . implode(',', array_map('strval', $arr)) . ");";
-            $insertion = array($tag);
-
-            return $this->db->query($query, $insertion)->result_array();
-        }
         public function getTagsByActivityName($activity) {
             $query =
             "SELECT activities.id, activity, tag FROM activities
@@ -253,7 +242,7 @@
         }
         public function addTasks($post) {
             $query = "INSERT INTO `shudidoo`.`tasks` (`task`, `user_id`)
-            VALUES (?, ?);";
+            VALUES (?, ?, ?);";
 
             $insertion = $post;
 

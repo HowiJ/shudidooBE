@@ -66,10 +66,10 @@
                 <div class="row" style="margin-top: -1em; margin-bottom: 0">
                     <ul>
                         <div class="menuButton col s6">
-                            <li class="selected">View</li>
+                            <li class="selected">Add</li>
                         </div>
                         <div class="menuButton col s6">
-                            <li>Add</li>
+                            <li>View</li>
                         </div>
                     </ul>
                 </div>
@@ -80,7 +80,7 @@
                     <!-- User Details -->
                     <?php if (!$this->session->userdata('currUser')): ?>
                         <h3>Login</h3>
-                        <form action="/checkLogin" method="post">
+                        <form action="/checkLogin" method="post" class="checkLogin">
                             <div class="row">
                                 <!-- <div class="col s3">Username: </div> -->
                                 <div class="input-field col s12">
@@ -96,7 +96,7 @@
                             </div>
                             <div class="row">
                                 <div class="col s12">
-                                    <button type="submit" class="btn waves-effect waves-light">
+                                    <button type="submit" class="btn waves-effect waves-light loginButton">
                                         Log In
                                         <i class="material-icons left"></i>
                                     </button>
@@ -155,7 +155,7 @@
                             <div class="row">
                                 <?php if ($this->session->userdata('currUser')): ?>
                                     <h4 id="addTag" class="addRowLabel">Add Tag/Activity</h4>
-                                    <form class="registerRowForm" action="/addTag" method="post">
+                                    <form class="registerRowForm addTagForm" action="/addTag" method="post">
                                         <div class="row">
                                             <div class="input-field col s6">
                                                 <input class="validate" type="text" name="newTag">
@@ -173,7 +173,7 @@
                             </div>
                             <div class="row">
                                 <?php if ($this->session->userdata('currUser')): ?>
-                                    <form class="registerRowForm" action="/addActivity" method="post">
+                                    <form class="registerRowForm addActivityForm" action="/addActivity" method="post">
                                         <div class="row">
                                             <div class="input-field col s6">
                                                 <input class="validate" type="text" name="newActivity" required>
@@ -193,18 +193,11 @@
                                     </form>
                                 <?php endif; ?>
                             </div>
-                            <div class="row">
-                                <form action="/updateActivity" class="registerRowForm">
-                                    <div class="row">
-
-                                    </div>
-                                </form>
-                            </div>
                         </div>
                         <div class="col s6">
                             <?php if ($this->session->userdata('currUser')): ?>
                                 <h4 id="register" class="addRowLabel">Register New User</h4>
-                                <form class="registerRowForm" action="/addUser" method="post">
+                                <form class="registerRowForm addUserForm" action="/addUser" method="post">
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <input class="validate" type="text" name="username" required>
@@ -256,10 +249,10 @@
                             <!-- User Tags -->
                             <!-- Select all users as a select with value of the user_id -->
                             <!-- Select all tags as a select with value of the tag_id -->
-                            <form class="addTagForms" id="userTagForm" action="/addUserTag" method="post">
+                            <form class="addTagForms addUserTagForm" id="userTagForm" action="/addUserTag" method="post">
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <select name="user" class="validate" required>
+                                        <select name="user" class="validate User" required>
                                             <option value="" disabled selected>User</option>
                                             <?php foreach ($users as $key => $value): ?>
                                                 <option value="<?= $value['id'] ?>"><?= $value['username'] ?></option>
@@ -267,7 +260,7 @@
                                         </select>
                                     </div>
                                     <div class="input-field col s6">
-                                        <select name="tag" class="validate" required>
+                                        <select name="tag" class="validate Tag" required>
                                             <option value="" disabled selected>Tag</option>
                                             <?php foreach($tags as $key => $value): ?>
                                                 <option value="<?= $value['id'] ?>"><?= $value['tag'] ?></option>
@@ -299,10 +292,10 @@
                             <!-- Activities Tags -->
                             <!-- Select all activities as a select with the value of the activity_id -->
                             <!-- Select all tags as a select with value of the tag_id -->
-                            <form class="addTagForms" id="activityTagForm" action="/addActivityTag" method="post">
+                            <form class="addTagForms addActivityTagForm" id="activityTagForm" action="/addActivityTag" method="post">
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <select class="validate" name="activity" required>
+                                        <select class="validate Activity" name="activity" required>
                                             <option value="" disabled selected>Activity</option>
                                             <?php foreach($activities as $key=>$value): ?>
                                                 <option value="<?= $value['id'] ?>"><?= $value['activity'] ?></option>
@@ -310,7 +303,7 @@
                                         </select>
                                     </div>
                                     <div class="input-field col s6">
-                                        <select class="validate" name="tag" required>
+                                        <select class="validate Tag" name="tag" required>
                                             <option value="" disabled selected>Tag</option>
                                             <?php foreach ($tags as $key => $value) : ?>
                                                 <option value="<?= $value['id'] ?>"><?= $value['tag'] ?></option>
@@ -345,11 +338,73 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                var bool = false;
+                var bool = true;
 
                 $('select').material_select();
                 $('.addTagForms').hide();
-                $('.add').hide();
+                $('.view').hide();
+
+                // $('.checkLogin').submit(function() {
+                //     event.preventDefault();
+                //     console.log($(this).serialize() );
+                //
+                //     var dataSerialized = $(this).serialize();
+                //
+                //     $.post('/addTag', dataSerialized, function(res){
+                //         console.log(res);
+                //     });
+                // })
+                $('.addTagForm').submit(function() {
+                    event.preventDefault();
+                    console.log($(this).serialize() );
+
+                    var dataSerialized = $(this).serialize();
+
+                    $.post('/addTag', dataSerialized, function(res){
+                        console.log(res);
+                    });
+                    $(this).trigger('reset');
+                })
+                $('.addActivityForm').submit(function() {
+                    event.preventDefault();
+                    console.log($(this).serialize() );
+
+                    var dataSerialized = $(this).serialize();
+
+                    $.post('/addActivity', dataSerialized, function(res){
+                        console.log(res);
+                    });
+                })
+                $('.addUserForm').submit(function() {
+                    event.preventDefault();
+                    console.log($(this).serialize() );
+
+                    var dataSerialized = $(this).serialize();
+
+                    $.post('/addUser', dataSerialized, function(res){
+                        console.log(res);
+                    });
+                })
+                $('.addUserTagForm').submit(function() {
+                    event.preventDefault();
+                    console.log($(this).serialize() );
+
+                    var dataSerialized = $(this).serialize();
+
+                    $.post('/addUseTag', dataSerialized, function(res){
+                        console.log(res);
+                    });
+                })
+                $('.addActivityTagForm').submit(function() {
+                    event.preventDefault();
+                    console.log($(this).serialize() );
+
+                    var dataSerialized = $(this).serialize();
+
+                    $.post('/addActivityTag', dataSerialized, function(res){
+                        console.log(res);
+                    });
+                })
 
                 $('.addRowLabel').click(function() {
                     //Toggle form under it
