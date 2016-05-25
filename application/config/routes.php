@@ -76,6 +76,7 @@ $route['addActivityTag'] = "main/addActivityTag";
 //  Tasks
 ////////////////////////////////////////////////////////////////////
 $route['addTasks'] = "main/addTasks";
+$route['json/tasks'] = "main/getTasksByName";           //json Tasks for a user
 ////////////////////////////////////////////////////////////////////
 
 
@@ -103,7 +104,6 @@ $route['json/usertags'] = "main/allUserTags";           //All User Tags
 $route['json/activitytags'] = "main/allActivityTags";   //All Activity Tags
 
 $route['json/login'] = "main/jsonCheckLogin";           //Login for json
-$route['json/tasks'] = "main/getTasksByName";           //json Tasks for a user
 ////////////////////////////////////////////////////////////////////
 
 

@@ -226,11 +226,21 @@ class Main extends CI_Controller {
 	//Tasks
 	////////////////////////////////////////////////////////////////////
 	public function addTasks() {
-		$post = $this->input->post();
-		$user = $this->User->checkUser($post['username'])[0];
-		$insert = array($post['task'], $user['id'], $post['priority']);
+		$post = $this->input->post();								//[[String]]
+		// $post = array(array('username'=>'howi', 'task'=>'Pls WERQ', 'priority'=>'Cupertino', 'locationRequired'=>'1'),array('username'=>'howi', 'task'=>'Pls WERQ2', 'priority'=>'Saratoga', 'locationRequired'=>'1'));
 
-		$this->User->addTasks($insert);
+		$username = $post[0]['username'];							//username : String
+		$userDetails = $this->User->checkUser($username);	//Details : [String]
+		$userId = $userDetails[0]['id'];								//userId : String
+
+		$connections = $this->User->getTasksByName(array($username));	//[[String]]
+		foreach ($connections as $key => $value) {
+			$this->User->deleteTaskByTaskId($value['id']);
+		}
+		foreach ($post as $key => $value) {
+			$insert = array($value['task'], $userId, $value['priority'], $value['locationRequired']);
+			$this->User->addTasks($insert);
+		}
 	}
 	////////////////////////////////////////////////////////////////////
 

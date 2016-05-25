@@ -253,7 +253,7 @@
         //TASKS
         ////////////////////////////////////////////////////////////////////////
         public function getTasksByName($post) {
-            $query = "SELECT * FROM tasks JOIN users ON user_id = users.id
+            $query = "SELECT tasks.id, task, user_id, locationRequired, priority FROM tasks JOIN users ON user_id = users.id
                 WHERE users.username = ?;";
 
             $insertion = $post;
@@ -276,12 +276,12 @@
             $this->db->query($query, $insertion);
         }
         public function addTasks($post) {
-            $query = "INSERT INTO `shudidoo`.`tasks` (`task`, `user_id`, `priority`)
-            VALUES (?, ?, ?);";
+            $query = "INSERT INTO `shudidoo`.`tasks` (`task`, `user_id`, `priority`, `locationRequired`)
+            VALUES (?, ?, ?, ?);";
 
             $insertion = $post;
 
-            $this->db->query($query, $insertion)->result_array();
+            $this->db->query($query, $insertion);
         }
         ////////////////////////////////////////////////////////////////////////
     }
