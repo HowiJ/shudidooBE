@@ -380,17 +380,17 @@
                 //         console.log(res);
                 //     });
                 // })
-                $('.addTagForm').submit(function() {
-                    event.preventDefault();
-                    // console.log($(this).serialize() );
-
-                    var dataSerialized = $(this).serialize();
-
-                    $.post('/addTag', dataSerialized, function(res){
-                        console.log(res);
-                    });
-                    $(this).trigger('reset');
-                })
+                // $('.addTagForm').submit(function() {
+                //     event.preventDefault();
+                //     // console.log($(this).serialize() );
+                //
+                //     var dataSerialized = $(this).serialize();
+                //
+                //     $.post('/addTag', dataSerialized, function(res){
+                //         console.log(res);
+                //     });
+                //     $(this).trigger('reset');
+                // })
                 $('.addActivityForm').submit(function() {
                     event.preventDefault();
                     // console.log($(this).serialize() );

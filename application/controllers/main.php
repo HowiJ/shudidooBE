@@ -67,6 +67,7 @@ class Main extends CI_Controller {
 	}
 	public function register() {
 		$post = $this->input->post();
+		$tags = $this->User->getAllTags();
 		// echo json_encode(array('someting'));
 		$users = $this->User->checkUser($post['username']);
 		//uname, pass, age, mobile?
@@ -77,7 +78,18 @@ class Main extends CI_Controller {
 			//Add User
 			// $this->User->registerUser($post);
 			$insert = array($post['username'], $post['password'], $post['age']);
+
 			$this->User->registerUser($insert);
+
+
+			$users = $this->User->checkUser($post['username']);
+
+			foreach ($tags as $key => $value) {
+				// var_dump($users);
+				if (count($this->User->checkUserTag(array($users[0]['id'],$value['id']))) < 1){
+					$this->User->addUserTag(array($users[0]['id'], $value['id'], 0));
+				}
+			}
 		} else {
 			//wtf... fix pls
 		}
@@ -86,6 +98,7 @@ class Main extends CI_Controller {
 	}
 	public function jsonRegister() {
 		$post = $this->input->post();
+		$tags = $this->User->getAllTags();
 
 		$users = $this->User->checkUser($post['username']);
 		if (count($users) == 1) {
@@ -98,11 +111,31 @@ class Main extends CI_Controller {
 
 
 			$users = $this->User->checkUser($post['username']);
+
+			foreach ($tags as $key => $value) {
+				if (count($this->User->checkUserTag(array($users['id'],$value['id']))) < 1){
+					$this->User->addUserTag(array($users['id'], $value['id'], 0));
+				}
+			}
+
+
 			echo json_encode($users);
 		} else {
 			//wtf... fix pls
 			echo json_encode(array('dafuq...contact admin plox'));
 		}
+		// $users = $this->User->getAllUsers();
+		// $tags = $this->User->getAllTags();
+		//
+		// foreach ($users as $key => $value) {
+		// 	foreach ($tags as $k => $val) {
+		// 		if (count($this->User->checkUserTag(array($value['id'],$val['id']))) < 1){
+		// 			$this->User->addUserTag(array($value['id'], $val['id'], 0));
+		// 		}
+		// 	}
+		// }
+
+
 	}
 	public function logout() {
 		$this->session->sess_destroy();
@@ -145,6 +178,8 @@ class Main extends CI_Controller {
 		$post = $this->input->post();
 		$postLower = array();
 
+		$users = $this->User->getAllUsers();
+
 		foreach ($post as $key=>$value) {
 			array_push($postLower, strtolower($value));
 		}
@@ -152,6 +187,19 @@ class Main extends CI_Controller {
 
 		if (count($check) < 1) {
 			$this->User->addTag($postLower);
+			$check = $this->User->checkTag($postLower);
+
+			//Initialize it all to 0 for each person
+			foreach ($users as $key => $value) {
+				//add usertag correlating to the tag
+				// echo $value['id'].$value['username'];
+				// var_dump($value, $check[0]['id']);
+				// die();
+				// $this->User->addUserTag(array($value['id'], $check[0]['id'], 0));
+				if (count($this->User->checkUserTag(array($value['id'],$check[0]['id']))) < 1){
+					$this->User->addUserTag(array($value['id'], $check[0]['id'], 0));
+				}
+			}
 		}
 
 		redirect('/');

@@ -30,9 +30,20 @@ class Task extends CI_Controller {
 
             $arr = array();
 
+            $randA = rand(1,100);
+            $choice;
+            //low: 20%, 30%, 50%
+            if ($randA > 65) {
+                $choice = 0;
+            } else if ($randA > 25) {
+                $choice = 3;
+            } else {
+                $choice = count($userTags)-4;
+            }
+
             if (count($userTags) > 3) {
                 for ($i=0; $i < 3; $i++) {
-                    array_push($arr, $userTags[$i]['tag']);
+                    array_push($arr, $userTags[$i+$choice]['tag']);
                 }
             } else {
                 for ($i=0; $i < count($userTags); $i++) {
