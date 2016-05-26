@@ -304,7 +304,6 @@ class Main extends CI_Controller {
 
 
 		if (count($users) < 1) {
-			echo json_encode(array('no tasks'));
 		} else {
 			echo json_encode($users);
 		}
