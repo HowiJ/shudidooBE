@@ -226,8 +226,13 @@ class Main extends CI_Controller {
 	//Tasks
 	////////////////////////////////////////////////////////////////////
 	public function addTasks() {
-		$post = $this->input->post();								//[[String]]
-		// $post = array(array('username'=>'howi', 'task'=>'Pls WERQ', 'priority'=>'Cupertino', 'locationRequired'=>'1'),array('username'=>'howi', 'task'=>'Pls WERQ2', 'priority'=>'Saratoga', 'locationRequired'=>'1'));
+		$poste = $this->input->post();								//[[String]]
+		// $poste = array('object'=>array(
+		// 	array('username'=>'howi', 'task'=>'Pls WERQAAA', 'priority'=>'Cupertino', 'locationRequired'=>'1'),
+		// 	array('username'=>'howi', 'task'=>'Pls WERQ2', 'priority'=>'Saratoga', 'locationRequired'=>'1')
+		// 		)
+		// 	);
+		$post = $poste['object'];
 
 		$username = $post[0]['username'];							//username : String
 		$userDetails = $this->User->checkUser($username);	//Details : [String]
