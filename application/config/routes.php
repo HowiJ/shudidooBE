@@ -75,6 +75,7 @@ $route['deleteTask/(:any)'] = "main/deleteAllTask/$1";
 
 //  Craziness
 ////////////////////////////////////////////////////////////////////
+$route['getBulkActivities/(:any)'] = "task/index/$1/12";
 $route['getBulkActivities/(:any)/(:any)'] = "task/index/$1/$2";
 ////////////////////////////////////////////////////////////////////
 
