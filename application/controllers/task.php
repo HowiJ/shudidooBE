@@ -33,9 +33,9 @@ class Task extends CI_Controller {
             $randA = rand(1,100);
             $choice;
             //low: 20%, 30%, 50%
-            if ($randA > 55) {
+            if ($randA > 45) {
                 $choice = 0;
-            } else if ($randA > 25) {
+            } else if ($randA > 15) {
                 $choice = 3;
             } else {
                 $choice = count($userTags)-4;
