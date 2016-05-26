@@ -33,7 +33,7 @@ class Task extends CI_Controller {
             $randA = rand(1,100);
             $choice;
             //low: 20%, 30%, 50%
-            if ($randA > 65) {
+            if ($randA > 55) {
                 $choice = 0;
             } else if ($randA > 25) {
                 $choice = 3;
