@@ -258,7 +258,7 @@ class Main extends CI_Controller {
 		$insert = array($post['task'], $user['id'], $post['priority'], $post['map_request']);
 		$this->User->addTasks($insert);
 
-		echo json_encode($insert);
+		// echo json_encode($insert);
 	}
 	////////////////////////////////////////////////////////////////////
 
