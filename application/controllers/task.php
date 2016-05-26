@@ -25,7 +25,7 @@ class Task extends CI_Controller {
 
 
         //DO 5 TIMES
-        while (count($returnArray) < 5) {
+        while (count($returnArray) < 15) {
             $userTags = $this->User->getUserTagsSorted($username);
 
             $arr = array();
