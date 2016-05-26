@@ -6,11 +6,12 @@ class Task extends CI_Controller {
         $this->load->model('User');
     }
 
-    public function index($username) {
+    public function index($username, $results) {
         $returnArray = array();
         $filterArray = ["social", "sosick"];
         //DO 5 TIMES
-        while (count($returnArray) < 15) {
+
+        while (count($returnArray) < $results) {
             $userTags = $this->User->getUserTagsSorted($username);
 
             $arr = array();
