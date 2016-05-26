@@ -9,21 +9,6 @@ class Task extends CI_Controller {
     public function index($username) {
         $returnArray = array();
         $filterArray = ["social", "sosick"];
-        /*
-            howard
-
-            WE CANT FILTER IN QUERY DUE TO THE DATABASE SETUP.
-            FUCK.
-            OUR SHITS GOING TO BE REALLY LONG.
-
-            I'LL DEAL WITH THIS FUCKFACE TOMORROW.
-            :)
-
-            CYA ON SC2 BB
-
-        */
-
-
         //DO 5 TIMES
         while (count($returnArray) < 15) {
             $userTags = $this->User->getUserTagsSorted($username);
@@ -33,9 +18,9 @@ class Task extends CI_Controller {
             $randA = rand(1,100);
             $choice;
             //low: 20%, 30%, 50%
-            if ($randA > 45) {
+            if ($randA > 25) {
                 $choice = 0;
-            } else if ($randA > 15) {
+            } else if ($randA > 6) {
                 $choice = 3;
             } else {
                 $choice = count($userTags)-4;
