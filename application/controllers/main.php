@@ -7,6 +7,21 @@ class Main extends CI_Controller {
 
 		$this->load->model('User');
 	}
+	//Quick Fixes
+	public function setNonsetUserTags() {
+		$users = $this->User->getAllUsers();
+		$tags = $this->User->getAllTags();
+
+		foreach ($users as $key => $value) {
+			foreach ($tags as $k => $val) {
+				if (count($this->User->checkUserTag(array($value['id'],$val['id']))) < 1){
+					$this->User->addUserTag(array($value['id'], $val['id'], 0));
+				}
+			}
+		}
+
+		redirect('/');
+	}
 	////////////////////////////////////////////////////////////////////////
 
 
@@ -125,16 +140,6 @@ class Main extends CI_Controller {
 			//wtf... fix pls
 			echo json_encode(array('dafuq...contact admin plox'));
 		}
-		// $users = $this->User->getAllUsers();
-		// $tags = $this->User->getAllTags();
-		//
-		// foreach ($users as $key => $value) {
-		// 	foreach ($tags as $k => $val) {
-		// 		if (count($this->User->checkUserTag(array($value['id'],$val['id']))) < 1){
-		// 			$this->User->addUserTag(array($value['id'], $val['id'], 0));
-		// 		}
-		// 	}
-		// }
 
 
 	}
