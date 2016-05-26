@@ -252,10 +252,11 @@ class Main extends CI_Controller {
 	}
 	public function addOneTask() {
 		$post = $this->input->post();
+		$post = array('username'=>'howi','task'=>'wtf','priority'=>'hi','map_request'=>'1');
 
 		$user = $this->User->checkUser($post['username']);
 
-		$insert = array($post['task'], $user['id'], $post['priority'], $post['map_request']);
+		$insert = array($post['task'], $user[0]['id'], $post['priority'], $post['map_request']);
 		$this->User->addTasks($insert);
 
 		// echo json_encode($insert);
