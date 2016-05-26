@@ -144,7 +144,7 @@ class Task extends CI_Controller {
             }
         }
 
-        echo json_encode(array($returnArray));
+        echo json_encode(array('suggestions'=>$returnArray));
         // var_dump($returnArray);
         // echo "==========================================<br />";
         // echo "============ T1 =============<br />";
