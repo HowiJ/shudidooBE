@@ -252,7 +252,7 @@ class Main extends CI_Controller {
 	}
 	public function addOneTask() {
 		$post = $this->input->post();
-		$post = array('username'=>'howi','task'=>'wtf','priority'=>'hi','map_request'=>'1');
+		// $post = array('username'=>'howi','task'=>'wtf','priority'=>'hi','map_request'=>'1');
 
 		$user = $this->User->checkUser($post['username']);
 
