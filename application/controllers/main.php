@@ -246,6 +246,8 @@ class Main extends CI_Controller {
 			$insert = array($value['task'], $userId, $value['priority'], $value['locationRequired']);
 			$this->User->addTasks($insert);
 		}
+
+		echo json_encode(array('status'=>'Done.'));
 	}
 	////////////////////////////////////////////////////////////////////
 
