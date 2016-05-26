@@ -113,8 +113,9 @@ class Main extends CI_Controller {
 			$users = $this->User->checkUser($post['username']);
 
 			foreach ($tags as $key => $value) {
-				if (count($this->User->checkUserTag(array($users['id'],$value['id']))) < 1){
-					$this->User->addUserTag(array($users['id'], $value['id'], 0));
+				// var_dump($users);
+				if (count($this->User->checkUserTag(array($users[0]['id'],$value['id']))) < 1){
+					$this->User->addUserTag(array($users[0]['id'], $value['id'], 0));
 				}
 			}
 

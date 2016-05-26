@@ -223,7 +223,7 @@
                         <div class="col s6">
                             <?php if ($this->session->userdata('currUser')): ?>
                                 <h4 id="register" class="addRowLabel">Register New User</h4>
-                                <form class="registerRowForm addUserForm" action="/addUser" method="post">
+                                <form class="registerRowForm addUserForm" action="/json/addUser" method="post">
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <input class="validate" type="text" name="username" required>
