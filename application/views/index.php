@@ -400,6 +400,8 @@
                     $.post('/addActivity', dataSerialized, function(res){
                         console.log(res);
                     });
+
+                    $(this)[0].reset();
                 })
                 $('.addUserForm').submit(function() {
                     // event.preventDefault();
