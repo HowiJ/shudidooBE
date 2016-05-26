@@ -261,6 +261,15 @@ class Main extends CI_Controller {
 
 		// echo json_encode($insert);
 	}
+	public function deleteAllTask($username) {					//username : String
+		$userDetails = $this->User->checkUser($username);	//Details : [String]
+		$userId = $userDetails[0]['id'];								//userId : String
+
+		$connections = $this->User->getTasksByName(array($username));	//[[String]]
+		foreach ($connections as $key => $value) {
+			$this->User->deleteTaskByTaskId($value['id']);
+		}
+	}
 	////////////////////////////////////////////////////////////////////
 
 

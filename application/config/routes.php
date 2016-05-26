@@ -78,6 +78,7 @@ $route['addActivityTag'] = "main/addActivityTag";
 $route['addTasks'] = "main/addOneTask";
 $route['addBulkTasks'] = "main/addTasks";
 $route['json/tasks'] = "main/getTasksByName";           //json Tasks for a user
+$route['deleteTask/(:any)'] = "main/deleteAllTask/$1";
 ////////////////////////////////////////////////////////////////////
 
 
