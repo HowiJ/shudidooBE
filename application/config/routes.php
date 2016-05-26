@@ -48,6 +48,7 @@ $route['setNonsetUserTags'] = "main/setNonsetUserTags";
 //  Login & Registration
 ////////////////////////////////////////////////////////////////////
 $route['checkLogin'] = "main/checkLogin";
+$route['facebookLogin'] = "main/facebookLogin";
 $route['addUser'] = "main/register";
 $route['json/addUser'] = "main/jsonRegister";
 $route['logout'] = "main/logout";
@@ -57,7 +58,7 @@ $route['delete/(:any)'] = "main/deleteUser/$1";
 //  Add User Tag & Add Activity Tag
 ////////////////////////////////////////////////////////////////////
 $route['addTag'] = "main/addTag";
-// $route['addTag'] = "main/getTasksByName";                   //All Tags
+// $route['addTag'] = "main/facebookLogin";                   //All Tags
 $route['addActivity'] = "main/addActivity";
 
 $route['addUserTag'] = "main/addUserTag";

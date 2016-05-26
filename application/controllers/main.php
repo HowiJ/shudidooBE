@@ -140,8 +140,31 @@ class Main extends CI_Controller {
 			//wtf... fix pls
 			echo json_encode(array('dafuq...contact admin plox'));
 		}
+	}
+	public function facebookLogin() {
+		$post = $this->input->post();
+		// $username = $post['username'];
+		$username = $post['newTag'];
+		//check user in database
+		$results = $this->User->checkUser($username);
 
+		if (count($results) < 1) {
+			//add them to database
+			$insert = array($username, 'facebook', 0);
+			$this->User->registerUser($insert);
+			$tags = $this->User->getAllTags();
+			//checkUser to results again.
+			$users = $this->User->checkUser($username);
+			//add userTag for each tag
+			foreach ($tags as $key => $value) {
+				if (count($this->User->checkUserTag(array($users[0]['id'],$value['id']))) < 1){
+					$this->User->addUserTag(array($users[0]['id'], $value['id'], 0));
+				}
+			}
 
+		}
+		//pass back results as json object
+		echo json_encode($this->User->checkUser($username));
 	}
 	public function logout() {
 		$this->session->sess_destroy();
