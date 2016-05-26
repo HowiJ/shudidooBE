@@ -202,7 +202,7 @@
                                     <form class="registerRowForm addActivityForm" action="/addActivity" method="post">
                                         <div class="row">
                                             <div class="input-field col s6">
-                                                <input class="validate" type="text" name="newActivity" required>
+                                                <input id="activityName" class="validate" type="text" name="newActivity" required>
                                                 <label for="newActivity">Activity Name</label>
                                             </div>
                                             <div class="input-field col s6">
@@ -402,6 +402,7 @@
                     });
 
                     $(this)[0].reset();
+                    $('#activityName').focus();
                 })
                 $('.addUserForm').submit(function() {
                     // event.preventDefault();
