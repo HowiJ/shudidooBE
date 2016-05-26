@@ -107,7 +107,7 @@
                 </div>
             </div>
 
-
+<?php if ($this->session->userdata('currUser') && $this->session->userdata('currUser')['admin'] == 9): ?>
             <div class="view">
 
                 <div class="row">
@@ -352,6 +352,7 @@
                     </div><!-- End Tags Row -->
                     <?php endif; ?>
             </div><!-- End Add Views -->
+<?php endif; ?>
 
 
 
