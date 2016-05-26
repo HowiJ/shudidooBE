@@ -227,6 +227,7 @@ class Main extends CI_Controller {
 	////////////////////////////////////////////////////////////////////
 	public function addTasks() {
 		$poste = $this->input->post();								//[[String]]
+		echo json_encode($poste);
 		// $poste = array('object'=>array(
 		// 	array('username'=>'howi', 'task'=>'Pls WERQAAA', 'priority'=>'Cupertino', 'locationRequired'=>'1'),
 		// 	array('username'=>'howi', 'task'=>'Pls WERQ2', 'priority'=>'Saratoga', 'locationRequired'=>'1')
@@ -247,7 +248,17 @@ class Main extends CI_Controller {
 			$this->User->addTasks($insert);
 		}
 
-		echo json_encode(array('status'=>'Done.'));
+		// echo json_encode(array('status'=>'Done.'));
+	}
+	public function addOneTask() {
+		$post = $this->input->post();
+
+		$user = $this->User->checkUser($post['username']);
+
+		$insert = array($post['task'], $user['id'], $post['priority'], $post['map_request']);
+		$this->User->addTasks($insert);
+
+		echo json_encode($insert);
 	}
 	////////////////////////////////////////////////////////////////////
 
