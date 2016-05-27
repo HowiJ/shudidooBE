@@ -62,6 +62,7 @@ $route['addTag'] = "main/addTag";
 $route['addActivity'] = "main/addActivity";
 
 $route['addUserTag'] = "main/addUserTag";
+$route['incrementUserTagCount'] = "main/incrementUserTagCount";
 $route['addActivityTag'] = "main/addActivityTag";
 ////////////////////////////////////////////////////////////////////
 

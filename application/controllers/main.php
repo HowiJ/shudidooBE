@@ -280,6 +280,26 @@ class Main extends CI_Controller {
 		}
 		redirect('/');
 	}
+	public function incrementUserTagCount() {
+		//takes just the activitiy and username
+		$post = $this->input->post();	//should be ['activity'=>'username']
+		// $post = array('activity'=>'volleyball', 'username'=>'alfred');
+		$user = $this->User->checkUser($post['username']);
+		$userId = $user[0]['id'];
+
+		$activityTags = $this->User->getTagsByActivityName($post['activity']);
+		$tagsArray = array();
+		foreach ($activityTags as $key => $value) {
+			array_push($tagsArray, $value['tag']);
+		}
+		foreach ($tagsArray as $key => $value) {
+			$tag = $this->User->checkTag($value);
+			$userTag = $this->User->checkUserTag(array($userId, $tag[0]['id']));
+			$count = $userTag[0]['count']+1;
+			$this->User->updateUserTag($count, $userTag[0]['id']);
+		}
+		redirect('/');
+	}
 	public function addActivityTag() {
 		$post = $this->input->post();
 
@@ -412,6 +432,15 @@ class Main extends CI_Controller {
 		} else {
 			echo json_encode($users);
 		}
+	}
+	public function getKeywordsByActivityName() {
+		$post = $this->input->post();
+
+		$activity = $post['activity'];
+
+		$keyword = $this->User->getKeywordsByActivityName($activity);
+
+		echo json_encode($keyword);
 	}
 	////////////////////////////////////////////////////////////////////////
 }

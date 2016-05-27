@@ -244,6 +244,13 @@
 
             return $this->db->query($query, $insertion)->result_array();
         }
+        public function getKeywordsByActivityName($activity) {
+            $query =
+                "SELECT keywords FROM activities WHERE activity = ?";
+
+            $insertion = array($activity);
+            return $this->db->query($query, $insertion)->row_array();
+        }
         ////////////////////////////////////////////////////////////////////////
 
 

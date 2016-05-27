@@ -141,7 +141,13 @@ class Task extends CI_Controller {
             }
         }
 
-        echo json_encode(array('suggestions'=>$returnArray));
+        $keywordsArray = array();
+        foreach ($returnArray as $key => $value) {
+            $keyword = $this->User->getKeywordsByActivityName($value);
+            array_push($keywordsArray, $keyword['keywords']);
+        }
+
+        echo json_encode(array('suggestions'=>$returnArray, 'keywords'=>$keywordsArray));
         // var_dump($returnArray);
         // echo "==========================================<br />";
         // echo "============ T1 =============<br />";
